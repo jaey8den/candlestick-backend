@@ -33,6 +33,10 @@ async def match_pattern(file: UploadFile = File(...)):
 
     return StreamingResponse(img_bytes, media_type="image/jpg", headers={"Pattern": best_pattern, "Coords": str(best_coord), "Score": str(best_score)})
 
+@app.get("/healthcheck/")
+async def healthcheck():
+    return {"status": "ok"}
+
 @app.get("/")
 async def root():
-    return {"message": "OK"}
+    return {"message": "hi there"}
