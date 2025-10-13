@@ -1,11 +1,25 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse, StreamingResponse
+from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
 import cv2 as cv
 
 from compare_patterns import find_best_pattern
 
 app = FastAPI()
+
+# Limit which domain can access the api
+origins = [
+    "https://candlestick-matcher.vercel.app/",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/match-pattern/")
 async def match_pattern(file: UploadFile = File(...)):
