@@ -32,3 +32,7 @@ async def match_pattern(file: UploadFile = File(...)):
     best_pattern, best_coord, best_score, img_bytes = find_best_pattern(img)
 
     return StreamingResponse(img_bytes, media_type="image/jpg", headers={"Pattern": best_pattern, "Coords": str(best_coord), "Score": str(best_score)})
+
+@app.get("/")
+async def root():
+    return {"message": "OK"}
