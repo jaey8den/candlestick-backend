@@ -53,13 +53,11 @@ def find_best_pattern(img):
             x_stride = math.floor(w/candlesticks_cnt) # overlap by 1 candlestick width
             y_stride = math.floor(h/8) # arbitrary
 
-            heatmap = np.zeros(( (h-y_window)//y_stride+1, (w-x_window)//x_stride+1 ))
-
             current_pattern_name = pattern_names[i][j]
             current_pattern_emb = pattern_emb[i][j]
 
-            for yi, y in enumerate(range(0, h - y_window, y_stride)):
-                for xi, x in enumerate(range(0, w - x_window, x_stride)):
+            for y in range(0, h - y_window, y_stride):
+                for x in range(0, w - x_window, x_stride):
                     patch = img_rgb[y:y+y_window, x:x+x_window]
                     if patch.shape[0] < 7 or patch.shape[1] < 7:
                         continue  # skip tiny patches at edges
@@ -69,7 +67,6 @@ def find_best_pattern(img):
                         best_score = score
                         best_coord = (x, y)
                         best_pattern = current_pattern_name
-                    heatmap[yi, xi] = score
 
     x, y = best_coord
     annotated = img.copy()
