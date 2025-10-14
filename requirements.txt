@@ -5,3 +5,4 @@ numpy
 torch
 torchvision
 python-multipart
+psutil
