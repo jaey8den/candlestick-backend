@@ -24,16 +24,19 @@ app.add_middleware(
 @app.post("/match-pattern/")
 async def match_pattern(file: UploadFile = File(...)):
     try:
+        print("Received file:", file.filename)
         contents = await file.read()
         if not contents:
             raise HTTPException(status_code=400, detail="Empty file")
         
+        print("Decoding image...")      
         np_arr = np.frombuffer(contents, np.uint8)
         img = cv.imdecode(np_arr, cv.IMREAD_COLOR)
         if img is None:
             raise HTTPException(status_code=404, detail="Invalid image file")
-
+        
         best_pattern, best_coord, best_score, img_bytes = find_best_pattern(img)
+        print("Best pattern found.")
 
         return StreamingResponse(img_bytes, media_type="image/jpg", headers={"Pattern": best_pattern, "Coords": str(best_coord), "Score": str(best_score)})
     except Exception as e:
