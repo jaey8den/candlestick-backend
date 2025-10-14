@@ -6,10 +6,6 @@ import cv2 as cv
 
 from compare_patterns import find_best_pattern
 
-import psutil, os
-print("Startup memory:", psutil.Process(os.getpid()).memory_info().rss / 1024**2, "MB", flush=True)
-
-
 app = FastAPI()
 
 # Limit which domain can access the api
