@@ -16,6 +16,10 @@ To achieve acceptable computing speeds (due to limited free resources), I increa
 
 I used a pretrained model for this project. Using a model tuned for my specific use case will produce better results but this is just proof of concept project. I also do not have access to a reasonable sized and accurate dataset to perform the training and fine-tuning myself.
 
+## Chart Patterns
+
+In reality, being able to identify a candlestick patterns is not enough. By extension, this should work with chart patterns as well, which will be a more reliable resource in making trading decisions in all chart intervals and longer time frames.
+
 ## Moved
 
 Render did could not handle OpenCV and ResNet and crashes everytime I call the api, so I moved to Hugging Face and it finally worked.
