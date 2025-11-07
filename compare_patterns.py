@@ -5,7 +5,7 @@ from numpy import dot
 from numpy.linalg import norm
 import math
 import numpy as np
-import io
+import base64
 
 from candlesticks import get_upload_details
 
@@ -74,6 +74,6 @@ def find_best_pattern(img):
     cv.rectangle(annotated, (x, y), (x + x_window, y + y_window), (0, 255, 0), 2)
 
     _, buffer = cv.imencode(".jpg", annotated)
-    img_bytes = io.BytesIO(buffer)
+    img_base64 = base64.b64encode(buffer.tobytes()).decode("utf-8")
 
-    return best_pattern, best_coord, float(best_score), img_bytes
+    return best_pattern, float(best_score), img_base64
